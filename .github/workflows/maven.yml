@@ -21,5 +21,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean package
+      run: mvn package
       ## run: mvn -B package --file pom.xml
+    - name: Ver build
+      run: |
+        ls -l
+        ls -l target
