@@ -23,7 +23,9 @@ jobs:
     - name: Build with Maven
       run: mvn package
       ## run: mvn -B package --file pom.xml
-    - name: Ver build
+    - name: Enviar build pro servidor
       run: |
-        ls -l
-        ls -l target
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+        scp -i ~/.ssh/id_rsa *.jar root@${{ secrets.SERVER }}:/home/asterisk
